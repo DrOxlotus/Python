@@ -8,7 +8,7 @@ file = "words.txt"
 
 def BuildWordList():
     wordList = []
-    with open("assets\\" + file) as wordFile:
+    with open("assets\\" + file, "r") as wordFile:
         words = wordFile.read()
         for word in words.split():
             wordList.append(word)
