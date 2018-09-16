@@ -4,9 +4,11 @@
 from sys import exit
 from random import randint
 
-def BuildWordList(fileName):
+file = "words.txt"
+
+def BuildWordList():
     wordList = []
-    with open('assets\{}'.format(fileName), 'r') as wordFile:
+    with open("assets\\" + file) as wordFile:
         words = wordFile.read()
         for word in words.split():
             wordList.append(word)
@@ -49,4 +51,4 @@ def Start(wordList):
     print("Your correct guesses were: ", end = "") # Don't print a newline
     print(guessList)
 
-BuildWordList("words.txt")
+BuildWordList()
