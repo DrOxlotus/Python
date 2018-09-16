@@ -24,15 +24,13 @@ def Search(userInput, word, list):
 
 def Start(wordList):
     index = randint(0, len(wordList))
-    word = "schnapps"
+    word = wordList[index]
     characters = []
     for char in word:
         characters.append(char)
 
     print("Welcome to Hangman! There are " + str(len(characters)) + " letters in your random word. Good luck!")
     print("If you know the word, enter it as a guess. If you're done, enter 0 and the program will exit.")
-
-    print(word)
 
     guessAmount = 0
     guessList = []
