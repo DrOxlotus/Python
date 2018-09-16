@@ -1,60 +1,54 @@
-from random import *
-
 ##
-# Author: Alex Metz (alex.tar.gz@gmail.com)
+# Purpose: A classic implementation of the Hangman game.
 ##
+from sys import exit
+from random import randint
 
-# Logic Section
-def buildWordList(fileName):
+def BuildWordList(fileName):
+    wordList = []
     with open('assets\{}'.format(fileName), 'r') as wordFile:
         words = wordFile.read()
-        wordList = []
         for word in words.split():
             wordList.append(word)
 
-    startGame(wordList)
+    Start(wordList)
 
-def searchList(characterList, userSelection, guessList, correctList):
-    startPos = -1
-    if(userSelection in guessList):
-        print("You guessed that letter already. (Note: This counts against your guesses.)")
-    else:
-        while True:
-            try:
-                location = characterList.index(userSelection, (startPos + 1))
-            except ValueError:
-                break
-            else:
-                correctList.insert(location, userSelection)
-                print(userSelection)
-                guessList.append(userSelection)
-                startPos = location
-    return correctList
+def Search(userInput, word, list):
+    list = list
+    for value, character in enumerate(word): # Using an enumerate object, which is a tuple, to support the iteration over the string to handle sequencing
+        if character == userInput:
+            list.insert(value, character)
+        else:
+            pass
+    return list
 
-def startGame(wordList):
-    i = randint(0, len(wordList))
-    randomWord = wordList[i]
-    characterList = []
-    for char in randomWord:
-        characterList.append(char)
+def Start(wordList):
+    index = randint(0, len(wordList))
+    word = "schnapps"
+    characters = []
+    for char in word:
+        characters.append(char)
 
-    print("Welcome to PyHangman! There are {} letters in your random word. Good luck!".format(len(characterList)))
+    print("Welcome to Hangman! There are " + str(len(characters)) + " letters in your random word. Good luck!")
     print("If you know the word, enter it as a guess. If you're done, enter 0 and the program will exit.")
+
+    print(word)
 
     guessAmount = 0
     guessList = []
-    correctList = []
     while(guessAmount < 8):
-        userSelection = raw_input("\nEnter your guess ({}): ".format(9 - (guessAmount + 1)))
-        guessAmount = (guessAmount + 1)
-        if(userSelection == randomWord) or (correctList == characterList):
+        userInput = input("\n" + "[" + str(guessAmount) + "]" + " Enter your guess: ")
+        guessAmount = guessAmount + 1
+        if userInput == word or guessList == characters:
             print("\n" + "You won!")
-            exit()
-        elif(userSelection == "0"):
+            exit(0)
+        elif(userInput == "0"):
             print("Thanks for playing!")
-            exit()
-        elif(characterList[0:len(characterList)]):
-            correctList = searchList(characterList, userSelection, guessList, correctList)
-    print("\n" + "The correct word was: {}".format(randomWord) + "\n" + "Your guesses were: {}".format("".join(correctList)))
+            exit(0)
+        else:
+            guessList = Search(userInput, word, guessList)
+    print("\n" + "The correct word was: " + word)
+    print("Your correct guesses were: ", end = "") # Don't print a newline
+    print(guessList)
 
-buildWordList("words.txt")
+BuildWordList("words.txt")
