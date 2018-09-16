@@ -1,3 +1,6 @@
+##
+# Purpose: Calculates the sum of all prime numbers in a given range, inclusively.
+##
 def CalculatePrimeSum(a, b):
     primeSum = 0
     primes = []
@@ -10,6 +13,6 @@ def CalculatePrimeSum(a, b):
         if guard <= 0:
             primes.append(i)
             primeSum = primeSum + i
-    return primeSum, primes
+    return primeSum
 
 print(CalculatePrimeSum(2, 30))
