@@ -12,7 +12,7 @@ ACCOUNTS = {
 }
 
 if len(sys.argv) < 2:
-    print("Usage: PasswordMgr.py <account_name>")
+    print("Usage: python PasswordMgr.py <account_name>")
     sys.exit(0)
 
 acc = sys.argv[1] # This sets 'acc' equal to the account name. (aka 'the key')
