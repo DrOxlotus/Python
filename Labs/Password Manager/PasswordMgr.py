@@ -2,8 +2,6 @@
 # Purpose: This is a simple implementation of a password manager.
 ##
 
-#! python3
-
 import sys, pyperclip
 
 ACCOUNTS = {
