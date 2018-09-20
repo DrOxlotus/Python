@@ -96,5 +96,3 @@ Lesson Projects:
 
     # By default, the split() method scans for whitespace, tabs, or new lines to split the string on. You can pass a 'delimiter', or a different character, to split on.
     # Common Delimiters: "," - ":"
-
-### JUSTIFYING TEXT WITH rjust(), ljust(), AND center() METHODS ###

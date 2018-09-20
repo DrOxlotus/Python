@@ -1,62 +1,41 @@
 ##
-# Author: Alex Metz (alex.tar.gz@gmail.com)
+# Purpose: A classic implementation of the MadLibs game!
 ##
 
-# Import Section
-import re # This is the Regular Expression Python library.
+import re
 
-def load_story(fileName):
-    print("\nYou chose {}. Excellent! Loading story now...\n".format(fileName))
-    files = {
-        "The Big Bang Theory": "tbbt.txt",
-        "Game of Thrones": "got.txt",
-        "The Lord of the Rings": "lotr.txt",
-        "World of Warcraft": "wow.txt",
-        "Overwatch": "ow.txt",
-        "Diablo 3": "d3.txt"
+pattern = re.compile(r"{[a-zA-Z\s]+}")
+
+def LoadStory(fileName):
+    print("\n" + "You chose, " + fileName + ", what an excellent choice!" + "\n")
+    fileDictionary = {
+        "A Very Bad Bedtime Story": "bedtime_story.txt"
     }
-    with open('stories\{}'.format(files[fileName]), 'r') as storyFile:
-        story=storyFile.read()
-        for word in story.split():
-            if(re.search(r"\{([A-Za-z0-9_]+)\}", word)):
-                if any(x in [".", ",", ";", "!"] for x in word[len(word)-1]):
-                    input0 = raw_input("Enter a(n) {}: ".format(re.sub(r'[{}]', '', word[0:len(word)-1])))
-                    story = story.replace(word[0:len(word)-1], input0, 1)
+    with open("stories\\" + fileDictionary[fileName], "r") as file:
+        fullStory = file.read()
+        modifiedStory = re.split(r"\s+(?=[^()]*(?:\{|$))", fullStory)
+        for word in modifiedStory:
+            print(word)
+            if (re.search(pattern, word)):
+                if any(character in [".", ",", ";", "!"] for character in word[len(word)-1]):
+                    partOfSpeech = input("Enter a(n) {}: ".format(re.sub(r'[{}]', '', word[0:len(word)-1])))
+                    fullStory = fullStory.replace(word[0:len(word)-1], partOfSpeech, 1)
                 else:
-                    input1 = raw_input("Enter a(n) {}: ".format(re.sub(r'[{}]', '', word)))
-                    story = story.replace(word, input1, 1) # The 1 is very important; without it every occurence would be replaced with the first match.
+                    partOfSpeech = input("Enter a(n) {}: ".format(re.sub(r'[{}]', '', word)))
+                    fullStory = fullStory.replace(word, partOfSpeech, 1)
 
-        print(story)
+        print(fullStory)
 
 choice = ""
 while(choice == ""):
-    print("""
-    1: The Big Bang Theory
-    2: Game of Thrones [NYI]
-    3: The Lord of the Rings [NYI]
-    4: World of Warcraft
-    5: Overwatch [NYI]
-    6: Diablo 3 [NYI]
-    7: Exit Mad Libs
+    print("Welcome to MadLibs!" + "\n" + """
+    1: A Very Bad Bedtime Story
+    2: Exit Mad Libs
     """)
-    choice = raw_input("Which story would you like to load? ")
+    choice = input("What would you like to do? ")
     if choice == "1":
-        load_story("The Big Bang Theory")
+        LoadStory("A Very Bad Bedtime Story")
     elif choice == "2":
-        #load_story("Game of Thrones")
-        print("\nNot Yet Implemented. Have a lovely day!")
-    elif choice == "3":
-        #load_story("Lord of the Rings")
-        print("\nNot Yet Implemented. Have a lovely day!")
-    elif choice == "4":
-        load_story("World of Warcraft")
-    elif choice == "5":
-        #load_story("Overwatch")
-        print("\nNot Yet Implemented. Have a lovely day!")
-    elif choice == "6":
-        #load_story("Diablo 3")
-        print("\nNot Yet Implemented. Have a lovely day!")
-    elif choice == "7":
         print("\nHave a lovely day!")
         break
     else:
