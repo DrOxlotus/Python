@@ -4,7 +4,7 @@
 
 # Source: https://en.wikipedia.org/wiki/List_of_lists_of_lists
 
-import sys, pyperclip
+from imports import *
 
 clipboard = pyperclip.paste()
 
